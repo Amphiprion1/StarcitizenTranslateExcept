@@ -4,6 +4,7 @@ The goal of this script is to let you keeping some orginal text based on their k
 You can add any number of regex in the do-not-translate-pattern.ini file. 
 * The key is just an helper for you
 * The value is the regexp to apply
+
 As soon as a key in the global.ini match one of those regexp, the original value will be kept instead of the translated one
 
 For example to avoid translating all Stanton element except their respective description you can use this regex:
