@@ -2,7 +2,7 @@
 The goal of this script is to let you keeping some orginal text based on their key names (using regular expression to match them) and so ovveride the translation existing in the translated/global.ini file
 
 For example to avoid translating all Stanton element except their respective description ypu can use this regex:
-^(Stanton)(?!.*_desc.*)
+^(Stanton)(?!.\\*_desc.\\*)
 
 This regexp will match all global.ini keys starting with "Stanton" and not containing "_desc" somewhere after that
 
