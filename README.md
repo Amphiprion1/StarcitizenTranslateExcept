@@ -12,6 +12,10 @@ For example to avoid translating all Stanton element except their respective des
 
 This regexp will match all global.ini keys starting with "Stanton" and not containing "_desc" somewhere after that
 
+# How to retrieve the original global.ini file from CIG
+The global.ini file is located in the Data.p4k (Starcitizen/LIVE). Inside the p4k it is at the Data/Localization/english path
+To extract it by your own you can use this p4k extractor https://github.com/dolkensp/unp4k
+
 # Configuration
 1) Copy the most up-to-date global.ini (CIG original file) in the original directory
 2) Copy your preferred translated global.ini file in the translated directory 
