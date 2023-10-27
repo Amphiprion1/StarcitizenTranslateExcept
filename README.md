@@ -1,7 +1,12 @@
 # Purpose
-The goal of this script is to let you keeping some orginal text based on their key names (using regular expression to match them) and so ovveride the translation existing in the translated/global.ini file
+The goal of this script is to let you keeping some orginal text based on their key names (using regular expression to match them) and so override the translation existing in the translated/global.ini file
 
-For example to avoid translating all Stanton element except their respective description ypu can use this regex:
+You can add any number of regex in the do-not-translate-pattern.ini file. 
+* The key is just an helper for you
+* The value is the regexp to apply
+As soon as a key in the global.ini match one of those regexp, the original value will be kept instead of the translated one
+
+For example to avoid translating all Stanton element except their respective description you can use this regex:
 ^(Stanton)(?!.\*_desc.\*)
 
 This regexp will match all global.ini keys starting with "Stanton" and not containing "_desc" somewhere after that
