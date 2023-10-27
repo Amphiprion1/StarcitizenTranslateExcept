@@ -32,6 +32,16 @@ $PATTERN_INI.GetEnumerator() | ForEach-Object{
         Write-Output $message
     }
 }
+Write-Output "Now, copying inexisting translated key from original file..."
+$count = 0
+$ORIGINAL_INI.GetEnumerator() | ForEach-Object{
+    if(!$TRANSLATED_INI.ContainsKey($_.key)) {
+        $count = $count + 1
+        $TRANSLATED_INI[$_.key] = $_.value
+    }
+}
+$message = "Adding {0} keys" -f $count
+
 Out-File -FilePath "global.ini"
 #New-Item -Name global.ini -ItemType File -Force
 Write-Output "writing result in ./global.ini, it will take some times..."
