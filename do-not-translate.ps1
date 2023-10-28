@@ -1,3 +1,21 @@
+function ConvertTo-LinuxLineEndings($path) {
+    $oldBytes = [io.file]::ReadAllBytes($path)
+    if (!$oldBytes.Length) {
+        return;
+    }
+    [byte[]]$newBytes = @()
+    [byte[]]::Resize([ref]$newBytes, $oldBytes.Length)
+    $newLength = 0
+    for ($i = 0; $i -lt $oldBytes.Length - 1; $i++) {
+        if (($oldBytes[$i] -eq [byte][char]"`r") -and ($oldBytes[$i + 1] -eq [byte][char]"`n")) {
+            continue;
+        }
+        $newBytes[$newLength++] = $oldBytes[$i]
+    }
+    $newBytes[$newLength++] = $oldBytes[$oldBytes.Length - 1]
+    [byte[]]::Resize([ref]$newBytes, $newLength)
+    [io.file]::WriteAllBytes($path, $newBytes)
+}
 function Get-IniContent ($filePath)
 {
 	$ini = @{}
@@ -41,10 +59,11 @@ $ORIGINAL_INI.GetEnumerator() | ForEach-Object{
     }
 }
 $message = "Adding {0} keys" -f $count
-
-Out-File -FilePath "global.ini"
+Write-Output $message
+Out-File -Encoding utf8 -FilePath "global.ini" 
 #New-Item -Name global.ini -ItemType File -Force
 Write-Output "writing result in ./global.ini, it will take some times..."
+$PSDefaultParameterValues = @{ 'out-file:encoding' = 'utf8' }
 $TRANSLATED_INI.GetEnumerator() | Sort-Object -Property key | ForEach-Object {
     $message = "{0}={1}" -f $_.key,$_.value
     $message >> "./global.ini"
